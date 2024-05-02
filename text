@@ -1,0 +1,46 @@
+appointment_id,user_id,operator_id,day,start_time,end_time,booking_status
+
+
+
+- Ability to 'book' an appointment slot by specific Operator or any
+- Ability to 'reschedule' or 'cancel' appointment
+- Ability to show all booked appointments of an operator. This should display all individual
+appointments ie. 1-2, 2-3, 3-4
+- Ability to show open slots of appointments for an operator. This should merge all consecutive
+open slots and show as 4-14 instead of 4-5, 5-6 .. 13-14.
+
+
+
+- number of service operators can be hardcoded to 3 - ServiceOperator0, ServiceOperator1,
+ServiceOperator2
+- Please give an identifier to Appointment Id. This is crucial part of system which allows auditing
+- Don't worry about the customer's aspect. Assume that you just have 1 customer who is
+booking multiple appointments at the same time or at different times of day/week
+
+- I am not concerned with dates as well. Solve the problem for a single day (but ensure your
+solution can be expanded to work with say weekly schedule or yearly calendar)
+- Don't worry about AM/PM. Use 24-hour format as it will greatly simplify your solution too.
+
+booking status -0,1,2,3
+
+1,1,2,
+
+
+check if it is booked--
+
+1-confirm
+2-reschedule
+3-cancel
+
+
+
+op  start  end  book_status,booking_time
+1    1     2      1
+
+
+assumption - 
+
+automatic schedule as it is not defined customer can select starttime as per choice
+
+
+

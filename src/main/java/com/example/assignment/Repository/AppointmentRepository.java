@@ -18,8 +18,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Integer> findAllStartTimeForDate(int operatorId, int bookingStatus, int day);
 
 
-    @Query(value = "SELECT * from  appointments WHERE operator_id = :operator and booking_status = :booking_status", nativeQuery = true)
-    List<Appointment> showOpenSLot(int operator,int booking_status);
+//    @Query(value = "SELECT * from  appointments WHERE operator_id = :operator and booking_status = :booking_status", nativeQuery = true)
+//    List<Appointment> showOpenSLot(int operator,int booking_status);
 
     @Query(value = "SELECT * FROM appointments WHERE operator_id = :operatorId and booking_status = :booking_status", nativeQuery = true)
     List<Appointment> bookedSlot(int operatorId,int booking_status);

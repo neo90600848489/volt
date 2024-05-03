@@ -76,7 +76,7 @@ public class BookingController {
         catch (RuntimeException e) {
             return ResponseEntity.internalServerError().body("Error :: server error");
         }
-         return ResponseEntity.ok("Rescheduked");
+         return ResponseEntity.ok("Rescheduled");
     }
     @RequestMapping(value = "/cancel/{appointmentId}" , method=RequestMethod.GET)
     public ResponseEntity<String> cancelAppointment(@PathVariable Long appointmentId) throws BusinessException {

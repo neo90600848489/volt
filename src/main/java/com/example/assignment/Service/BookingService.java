@@ -144,7 +144,7 @@ public class BookingService {
         List<OpenSlotResponseUnit> slotResponse = null;
         try {
             requestUtils.validateOPerator(operator);
-            List<Appointment> appointments = appointmentRepository.showOpenSLot(operator, 1);
+            List<Appointment> appointments = appointmentRepository.bookedSlot(operator, 1);
             Map<Integer, List<Appointment>> operatorAppointments = appointments.stream().collect(Collectors.groupingBy(Appointment::getDay));
             slotResponse = createSlotResponse(operatorAppointments);
         }
@@ -237,12 +237,14 @@ public class BookingService {
             }
             openSlotResponseUnits.add(openSlotResponseUnit);
         });
+
         return  openSlotResponseUnits;
     }
 
     private Map<String,String> createBookedSlot(List<Integer> startTimes) {
         Map<String,String> map = new LinkedHashMap<>();
         AtomicInteger slot= new AtomicInteger(1);
+        Collections.sort(startTimes);
         startTimes.forEach(startTime->{
             StringBuilder rangeBuilder = new StringBuilder();
             rangeBuilder.append(String.valueOf(startTime)).append(" - ").append(String.valueOf(startTime+1));
@@ -276,6 +278,7 @@ public class BookingService {
     }
     @Transactional
     public void rescheduleAppointment(AppointmentRequest appointMentRequest, Long appointmentId) throws BusinessException {
+        requestUtils.validateAppointmentRequest(appointMentRequest);
         try {
            if(appointmentRepository.isAppointmentExist(appointmentId) ) {
                rescheduleandProcessBookinf(appointmentId,appointMentRequest);

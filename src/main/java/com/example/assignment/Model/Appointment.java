@@ -27,8 +27,6 @@ public class Appointment {
     @Column(name = "start_time")
     private int  startTime;
 
-    @Column(name = "end_time")
-    private String endTime;
 
     @Column(name = "booking_status")
     private int bookingStatus;
@@ -71,14 +69,6 @@ public class Appointment {
 
     public void setStartTime(int startTime) {
         this.startTime = startTime;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
     }
 
     public int  getBookingStatus() {

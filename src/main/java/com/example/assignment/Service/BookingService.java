@@ -73,12 +73,18 @@ public class BookingService {
                 appointment = createAppointment(appointMentRequest, bookingStatus);
                 isAppointmentCreated=true;
             }
-            if(bookingStatus.getId()==BookingStatus.CONFIRMED.getId()) {
-                // if user request for new booking
-                Appointment savedAppointment = appointmentRepository.save(appointment);
-                AppointmentAudit appointmentAudit = createAppointmentAudit(savedAppointment.getAppointmentId(), appointment.getBookingStatus());
-                appointmentAuditRepository.save(appointmentAudit);
+            if(isAppointmentCreated) {
+                if (bookingStatus.getId() == BookingStatus.CONFIRMED.getId()) {
+                    // if user request for new booking
+                    Appointment savedAppointment = appointmentRepository.save(appointment);
+                    AppointmentAudit appointmentAudit = createAppointmentAudit(savedAppointment.getAppointmentId(), appointment.getBookingStatus());
+                    appointmentAuditRepository.save(appointmentAudit);
+                }
             }
+            else {
+                throw new BusinessException(ExceptionList.OPERATOR_ENGAGED.getId(),ExceptionList.OPERATOR_ENGAGED.getText());
+            }
+
             return isAppointmentCreated;
         }
         catch (BusinessException e) {
@@ -267,6 +273,9 @@ public class BookingService {
                 appointmentAudit.setCreatedTime(new Date());
                 appointmentAudit.setAppointmentId(appointmentId);
                 appointmentAuditRepository.save(appointmentAudit);
+            }
+            else {
+                throw new BusinessException(ExceptionList.OPERATOR_ENGAGED.getId(), ExceptionList.OPERATOR_ENGAGED.getText());
             }
         } catch (BusinessException e) {
             throw new BusinessException(e.getId(),e.getMessage());

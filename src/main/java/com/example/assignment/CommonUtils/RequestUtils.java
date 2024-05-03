@@ -9,10 +9,17 @@ import org.springframework.stereotype.Component;
 public class RequestUtils {
     public void validateAppointmentRequest(AppointmentRequest appointMentRequest) throws BusinessException {
         try {
-            if(appointMentRequest.getOperatorId()<=0 || appointMentRequest.getOperatorId()>4
-             || appointMentRequest.getDay()<=0 || appointMentRequest.getDay()>7
-             || appointMentRequest.getStart_time()<=0 || appointMentRequest.getStart_time()>24)
-                throw new BusinessException(ExceptionList.INVALID_REQUEST.getId(), ExceptionList.INVALID_REQUEST.getText());
+            if(appointMentRequest.isMultiOperator()==false) {
+                if (appointMentRequest.getOperatorId() <= 0 || appointMentRequest.getOperatorId() > 4
+                        || appointMentRequest.getDay() <= 0 || appointMentRequest.getDay() > 7
+                        || appointMentRequest.getStart_time() <= 0 || appointMentRequest.getStart_time() > 24)
+                    throw new BusinessException(ExceptionList.INVALID_REQUEST.getId(), ExceptionList.INVALID_REQUEST.getText());
+            }
+            else {
+                if (appointMentRequest.getDay() <= 0 || appointMentRequest.getDay() > 7
+                        || appointMentRequest.getStart_time() <= 0 || appointMentRequest.getStart_time() > 24)
+                    throw new BusinessException(ExceptionList.INVALID_REQUEST.getId(), ExceptionList.INVALID_REQUEST.getText());
+            }
         }
         catch(BusinessException e) {
             throw  new BusinessException(e.getId(),e.getMessage());
